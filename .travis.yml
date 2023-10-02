@@ -1,12 +1,14 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
-  before_install:
-    - docker build -t shumenov/react-test -f ./client/Dockerfile.dev
+before_install:
+  - docker build -t shumenov/react-test -f ./client/Dockerfile.dev ./client
 
   script:
-    - docker run -e CI=true shumenov/react-test npm test -- --coverage
+    - docker run -e CI=true shumenov/react-test npm test
 
   after_success:
     - docker build -t shumenov/multi-client ./client
