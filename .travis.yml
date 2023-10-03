@@ -22,3 +22,15 @@ after_success:
   - docker push shumenov/multi-nginx
   - docker push shumenov/multi-server
   - docker push shumenov/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-north-1"
+  app: "multi-docker"
+  env: "Multi-docker-env"
+  bucket_name: "elasticbeanstalk-eu-north-1-565812099137"
+  bucket_path: "docker-multi"
+  on:
+    branch: main
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
